@@ -1,35 +1,21 @@
-const Movie = require("../models/movieModel")
 const express = require("express")
+const { getAllMovies, showMovie, createMovie, deleteMovie, updateMovie } = require("../controllers/moviesController")
 
 const router = express.Router()
 
-// GET all workouts (index)
-router.get("/", async (req, res) => {
-const movies = await Movie.find({}).sort({createdAt: -1})
+// // GET all movies (index)
+router.get("/", getAllMovies)
 
-res.status(200).json(movies)
-})
+// // GET a single movie (show)
+router.get("/:id", showMovie)
 
-// GET a single wotkout (show)
-router.get("/:id")
+// // CREATE a new movie (create)
+router.get("/", createMovie)
 
-// CREATE a new workout (create)
-router.post("/", async (req, res) => {
-  const { title, release_date, poster_path, overview, original_language } = req.body
+// //DELETE a movie (destroy)
+router.get("/:id", deleteMovie)
 
-  // add to DB
-  try {
-    const movie = await Movie.create({ title, release_date, poster_path, overview, original_language })
-    res.status(200).json(movie)
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
-})
-
-//DELETE a workout (destroy)
-router.delete("/:id")
-
-// UPDATE a workout (update)
-router.patch("/:id")
+// // UPDATE a movie (update)
+router.get("/:id", updateMovie)
 
 module.exports = router;

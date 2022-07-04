@@ -10,7 +10,7 @@ const movieSchema = new Schema({
     type: Date,
     required: true
   },
-  poster_path: {
+  poster_url: {
     type: String,
     required: true
   },
@@ -20,6 +20,10 @@ const movieSchema = new Schema({
   },
   original_language: {
     type: String,
+    required: true
+  }, genre_ids:
+  {
+    type: Array,
     required: true
   }
 }, { timestamps: true })
