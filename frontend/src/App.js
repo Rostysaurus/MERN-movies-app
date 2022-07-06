@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Favourites from "./components/Favourites";
 import Playlists from "./components/Playlists";
 import Navbar from './components/Navbar'
+import "./index.scss"
 
 function App() {
   return (

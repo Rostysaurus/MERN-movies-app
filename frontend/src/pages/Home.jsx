@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-
+import "../index.scss"
+import MovieDetails from '../components/MovieDetails';
 
 
 export default function Home() {
@@ -25,7 +26,9 @@ export default function Home() {
 
   return (
     <div className="home">
-      <h2>Home</h2>
+      {movies && movies.map((movie) => (
+        <MovieDetails key={movie.id} movie={movie}/>
+      ))}
     </div>
   )
 }

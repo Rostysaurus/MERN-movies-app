@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import Favourites from './Favourites'
 import Playlists from './Playlists'
+import "../index.scss"
 
 export default function Navbar() {
   return (

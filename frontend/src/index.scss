@@ -46,8 +46,8 @@ header a {
 /* homepage */
 .home {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 .movie-details {
   background: #fff;
@@ -56,6 +56,7 @@ header a {
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+
 }
 .movie-details h4 {
   margin: 0 0 10px 0;
