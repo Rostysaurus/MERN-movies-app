@@ -1,85 +1,45 @@
 import React from 'react'
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CustomizedDialogs from "./MovieDetailsModal"
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import { useMoviesContext } from '../hooks/useMoviesContext'
+import { Fragment, useState } from 'react';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export default function MovieDetails({movie}) {
+  const { dispatch } = useMoviesContext()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  // mui
-  const [expanded, setExpanded] = React.useState(false);
-
-  const { title, poster_path, overview, release_date, original_language, genre_ids } = movie
-  const imageUrl = `https://image.tmdb.org/t/p/w300/${poster_path}`
+  const { title, poster_path, overview, release_date, original_language, genre_ids, vote_average, id } = movie
+  const imageUrl = `https://image.tmdb.org/t/p/w500/${poster_path}`
   const background = {backgroundImage: `url("${imageUrl}")`}
+  const modalClasses = `modal ${modalIsOpen ? `opened` : `closed`}`
 
-  //mui
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const handleModal = () => {
+    setModalIsOpen(prev => !prev)
+  }
 
   return (
-    <Card sx={{ maxWidth: 250 }}>
-          <CardMedia
-      component="img"
-      height="350"
-      image={imageUrl}
-      alt={title}
-    />
-    <CardHeader
-      action={
-        <IconButton aria-label="settings">
-          <MoreVertIcon />
-        </IconButton>
-      }
-      title={title}
-      subheader={release_date}
-    />
+    <Fragment>
+      {( title && poster_path && overview && genre_ids && vote_average ?
+        <div className="card">
+          <div className="image">
+            <FavoriteBorderIcon className='heart'/>
+            <MoreVertIcon className='more'/>
+            <img src={imageUrl} alt={title} />
+          </div>
+        <div className="cardInfo" onClick={handleModal}>
+          <h3>{title}</h3>
+          <span>{vote_average}</span>
+        </div>
+        <div className={modalClasses} onClick={handleModal}>
+              <h2>Overview:</h2>
+              <br />
+              <p>{overview}</p>
+          </div>
+      </div>
+      : null
+      )}
 
-    <CardContent>
-    </CardContent>
-    <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton aria-label="share">
-        <ShareIcon />
-      </IconButton>
-      <ExpandMore
-        expand={expanded}
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-      >
-        <CustomizedDialogs overview={overview} title={title}/>
-      </ExpandMore>
-    </CardActions>
-  </Card>
+    </Fragment>
   )
 }
