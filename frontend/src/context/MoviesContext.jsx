@@ -16,10 +16,10 @@ export const moviesReducer = (state, action) => {
       return {
         movies: state.movies.filter((movie) => movie._id !== action.payload._id)
       }
-    case "TOGGLE_MODAL":
-      return {
-        modalIsOpen: !state.modalIsOpen,
-      }
+    // case "IS_FAVOURITE":
+    //   return {
+    //     isFavourite: state.movies.some(movie => movie._id === action.payload)
+    //   }
     default:
       return state
   }
@@ -28,8 +28,7 @@ export const moviesReducer = (state, action) => {
 
 export const MoviesContextProvider = ({children}) => {
   const [state, dispatch] = useReducer(moviesReducer, {
-    movies: null,
-    modalIsOpen: false,
+    movies: [],
   })
 
   return (

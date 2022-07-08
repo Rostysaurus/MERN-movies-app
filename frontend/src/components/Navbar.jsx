@@ -12,7 +12,7 @@ export default function Navbar() {
           <h1>Movie tracker</h1>
         </Link>
         <div className="links">
-          <Link to="/favourites">{<Favourites/>}</Link>
+          <Link to="/favourites">Faves</Link>
           <Link to="/playlists">{<Playlists/>}</Link>
         </div>
       </div>

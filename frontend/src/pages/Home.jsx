@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import "../index.scss"
 import MovieDetails from '../components/MovieDetails';
 import { Fragment } from 'react';
+import { useMoviesContext } from '../hooks/useMoviesContext';
 
 export default function Home() {
 
@@ -14,7 +15,19 @@ export default function Home() {
 
   // console.log(popularMovies)
 
+  const { dispatch } = useMoviesContext()
 
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await fetch("api/movies")
+      const data = await response.json()
+
+      if (response.ok) {
+        dispatch({type: "SET_MOVIES", payload: data})
+      }
+    }
+    fetchMovies()
+  }, [])
 
   useEffect(() => {
 

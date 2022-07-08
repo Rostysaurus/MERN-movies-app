@@ -1,5 +1,5 @@
 const express = require("express")
-const { getAllMovies, showMovie, createMovie, deleteMovie, updateMovie } = require("../controllers/moviesController")
+const { getAllMovies, showMovie, createMovie, deleteMovie, updateMovie, deleteMovies } = require("../controllers/moviesController")
 
 const router = express.Router()
 
@@ -10,12 +10,15 @@ router.get("/", getAllMovies)
 router.get("/:id", showMovie)
 
 // // CREATE a new movie (create)
-router.get("/", createMovie)
+router.post("/", createMovie)
 
 // //DELETE a movie (destroy)
-router.get("/:id", deleteMovie)
+router.delete("/:id", deleteMovie)
 
 // // UPDATE a movie (update)
-router.get("/:id", updateMovie)
+router.patch("/:id", updateMovie)
+
+// // DELETE ALL
+router.delete("/", deleteMovies)
 
 module.exports = router;
