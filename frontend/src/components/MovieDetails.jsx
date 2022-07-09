@@ -17,6 +17,8 @@ export default function MovieDetails({movie}) {
     setModalIsOpen(prev => !prev)
   }
 
+  console.log(movies)
+
   const isFavourite = (id) => {
     return movies.some(film => film.id === id)
   }

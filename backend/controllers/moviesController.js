@@ -27,11 +27,11 @@ const getAllMovies = async (req, res) => {
 
   // CREATE a new movie (create)
   const createMovie = async (req, res) => {
-    const { title, release_date, poster_path, overview, original_language, genre_ids, id } = req.body
+    const { title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids } = req.body
 
     // add to DB
     try {
-      const movie = await Movie.create({ title, release_date, poster_path, overview, original_language, genre_ids, id })
+      const movie = await Movie.create({ title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids })
       res.status(200).json(movie)
     } catch (error) {
       res.status(400).json({error: error.message})
@@ -80,6 +80,10 @@ const getAllMovies = async (req, res) => {
 
     res.status(200).json(movies)
   }
+
+  // DELETE by id
+
+  // Up
 
 
   module.exports = {

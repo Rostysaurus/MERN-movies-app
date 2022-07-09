@@ -26,9 +26,17 @@ const movieSchema = new Schema({
     type: Array,
     required: true
   },
+  playlist_ids: {
+    type: Array,
+    required: true
+  },
   id: {
     type: Number,
     required: true
+  },
+  isFavourite: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true })
 
