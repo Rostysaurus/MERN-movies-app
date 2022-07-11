@@ -16,6 +16,10 @@ export const moviesReducer = (state, action) => {
       return {
         movies: state.movies.filter((movie) => movie._id !== action.payload._id)
       }
+      // case "UPDATE_ONE":
+      // return {
+      //   movies: state.movies.map((movie) => movie.id === action.payload.id ? { ...action.payload.isFavourite} : movie)
+      // }
     // case "IS_FAVOURITE":
     //   return {
     //     isFavourite: state.movies.some(movie => movie._id === action.payload)

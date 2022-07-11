@@ -1,5 +1,5 @@
 const express = require("express")
-const { getAllMovies, showMovie, createMovie, deleteMovie, updateMovie, deleteMovies } = require("../controllers/moviesController")
+const { getAllMovies, showMovie, createMovie, deleteMovie, updateMovie, deleteMovies, updateOne } = require("../controllers/moviesController")
 
 const router = express.Router()
 
@@ -20,5 +20,8 @@ router.patch("/:id", updateMovie)
 
 // // DELETE ALL
 router.delete("/", deleteMovies)
+
+// UPDATE one
+router.patch("/", updateOne)
 
 module.exports = router;

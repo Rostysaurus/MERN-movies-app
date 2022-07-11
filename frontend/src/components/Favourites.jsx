@@ -7,6 +7,6 @@ export default function Favourites() {
   const { dispatch, movies } = useMoviesContext()
 
   return (
-    <div>{movies.map(movie => (<p>{movie.title}</p>))}</div>
+    <div>{movies.map(movie => (<p>{movie.isFavourite ? "true" : "false"}</p>))}</div>
   )
 }

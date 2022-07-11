@@ -81,9 +81,20 @@ const getAllMovies = async (req, res) => {
     res.status(200).json(movies)
   }
 
-  // DELETE by id
+  // Find by id and UPDATE
+  const updateOne = async (req, res) => {
+    const { id, isFavourite } = req.body
 
-  // Up
+    const movie = await Movie.findOneAndUpdate({id: id}, {
+      ...req.body
+    })
+
+    if (!movie) {
+      return res.status(400).json({error: "No such movie"})
+    }
+
+    res.status(200).json(movie)
+  }
 
 
   module.exports = {
@@ -92,5 +103,6 @@ const getAllMovies = async (req, res) => {
     createMovie,
     deleteMovie,
     updateMovie,
-    deleteMovies
+    deleteMovies,
+    updateOne
   }

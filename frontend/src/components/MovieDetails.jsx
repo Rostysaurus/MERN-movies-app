@@ -16,36 +16,82 @@ export default function MovieDetails({movie}) {
   const handleModal = () => {
     setModalIsOpen(prev => !prev)
   }
+  // const suka = movies.filter(m => m.id === 438148)
+  // console.log(suka[0])
 
-  console.log(movies)
 
-  const isFavourite = (id) => {
+  const existsInMovies = (id) => {
     return movies.some(film => film.id === id)
+  }
+
+  const isFave = (id) => {
+    const movie = movies.find(movie => movie.id === id)
+    const isFavourite = movie.isFavourite
+    return isFavourite
   }
 
   const favouriteHandler = async (e) => {
     e.preventDefault()
+    const thisFilm = movies.find(film => film.id === movie.id)
+    thisFilm ? console.log(thisFilm.isFavourite) : console.log("not in movies")
+  }
 
-    if (isFavourite(movie.id) === true ) {
-      const response = await fetch(`/api/movies/:${movie._id}`, {
-        method: "DELETE",
-      })
+  const test = async (e) => {
+    e.preventDefault()
 
-      const data = await response.json()
+    if (existsInMovies((movie.id))) {
+      if (isFave(movie.id)){
+        console.log("Movie exists and is a Fave:", movie.title, isFave(movie.id))
 
-      if (!response.ok) {
-        setError(data.error)
+        const response = await fetch("/api/movies", {
+          method: "PATCH",
+          body: JSON.stringify({...movie, isFavourite: false}),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          setError(data.error)
+        }
+
+        if (response.ok) {
+          setError(null)
+          dispatch({type: "UPDATE_ONE", payload: data})
+          console.log("removed", data.title, existsInMovies(data.id), data.isFavourite, data.id)
+        }
+
+      } else if (!isFave(movie.id)) {
+        console.log("Movie exists but is NOT a Fave:", movie.title)
+
+        const response = await fetch("/api/movies", {
+          method: "PATCH",
+          body: JSON.stringify({...movie, isFavourite: true}),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          setError(data.error)
+        }
+
+        if (response.ok) {
+          setError(null)
+          dispatch({type: "UPDATE_ONE", payload: data})
+          console.log("added", data.title, existsInMovies(data.id), data.isFavourite, data.id)
+        }
       }
+    } else if (!existsInMovies((movie.id))) {
+      console.log("Movie does NOT exist and is NOT a Fave:", movie.title)
 
-      if (response.ok) {
-        setError(null)
-        dispatch({type: "DELETE_MOVIE", payload: movie})
-        console.log("deleted", isFavourite(movie.id), movie)
-      }
-    } else if (isFavourite(movie.id) === false) {
       const response = await fetch("/api/movies", {
         method: "POST",
-        body: JSON.stringify(movie),
+        body: JSON.stringify({...movie, isFavourite: true}),
         headers: {
           "Content-Type": "application/json"
         }
@@ -60,8 +106,8 @@ export default function MovieDetails({movie}) {
       if (response.ok) {
         setError(null)
         dispatch({type: "CREATE_MOVIE", payload: data})
-        console.log("added", isFavourite(data.id), data)
       }
+      console.log("added", data.title, existsInMovies(data.id), "IsFave?", data.isFavourite, data.id)
     }
 
   }
@@ -73,10 +119,10 @@ export default function MovieDetails({movie}) {
       {( title && poster_path && overview && genre_ids && vote_average ?
         <div className="card">
           <div className="image">
-            {/* {console.log(isFavourite(movie.id), movie.id)} */}
+            {/* {console.log(isFave(movie.id), movie.title)} */}
             {<FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>}
-            {/* {isFavourite(movie.id) ? <FavoriteIcon className='heart' onClick={unfaveHandler()}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/> } */}
-            <MoreVertIcon className='more'/>
+            {/* {existsInMovies(movie.id) ? <FavoriteIcon className='heart' onClick={unfaveHandler()}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/> } */}
+            <MoreVertIcon className='more' onClick={test}/>
             <img src={imageUrl} alt={title} />
           </div>
         <div className="cardInfo" onClick={handleModal}>
