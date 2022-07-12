@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import "../index.scss"
 import MovieDetails from '../components/MovieDetails';
 import { Fragment } from 'react';
-import { useMoviesContext } from '../hooks/useMoviesContext';
+import { useFavesContext } from '../hooks/useFavesContext';
 
 export default function Home() {
 
@@ -15,7 +15,7 @@ export default function Home() {
 
   // console.log(popularMovies)
 
-  const { dispatch } = useMoviesContext()
+  const { dispatch } = useFavesContext()
 
   useEffect(() => {
     const fetchMovies = async () => {
