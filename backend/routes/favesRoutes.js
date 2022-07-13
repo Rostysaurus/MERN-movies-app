@@ -7,7 +7,7 @@ const router = express.Router()
 router.get("/", getAllFaves)
 
 // // GET a single Fave (show)
-router.get("/:id", showFave)
+// router.get("/:id", showFave)
 
 // // CREATE a new Fave (create)
 router.post("/", createFave)
@@ -18,13 +18,13 @@ router.delete("/:id", deleteFave)
 // // UPDATE a Fave (update)
 router.patch("/:id", updateFave)
 
-// // DELETE ALL
-// router.delete("/", deleteFaves)
+// DELETE ALL
+router.delete("/", deleteFaves)
 
 // UPDATE one
 router.patch("/", updateOne)
 
 // DELETE one
-router.delete("/", deleteOne)
+router.get("/:id", deleteOne)
 
 module.exports = router;

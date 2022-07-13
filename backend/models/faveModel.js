@@ -2,6 +2,11 @@ const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 const faveSchema = new Schema({
+  id: {
+    type: Number,
+    required: true,
+    unique: true
+  },
   movie: {
     title: {
       type: String,

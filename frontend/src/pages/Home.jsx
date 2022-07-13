@@ -19,11 +19,11 @@ export default function Home() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await fetch("api/movies")
+      const response = await fetch("api/faves")
       const data = await response.json()
 
       if (response.ok) {
-        dispatch({type: "SET_MOVIES", payload: data})
+        dispatch({type: "SET_FAVES", payload: data})
       }
     }
     fetchMovies()

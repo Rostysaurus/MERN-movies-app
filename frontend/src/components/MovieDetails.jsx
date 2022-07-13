@@ -1,9 +1,9 @@
-import React from 'react'
 import { useFavesContext } from '../hooks/useFavesContext'
-import { Fragment, useState } from 'react';
+import { Fragment, useState} from 'react';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { motion } from "framer-motion"
 
 export default function MovieDetails({movie}) {
   const { dispatch, faves } = useFavesContext()
@@ -17,7 +17,6 @@ export default function MovieDetails({movie}) {
     setModalIsOpen(prev => !prev)
   }
 
-  console.log(faves)
 
   const isFave = (id) => {
     return faves.some(fave => fave.id === id)
@@ -25,6 +24,8 @@ export default function MovieDetails({movie}) {
 
   const favouriteHandler = async (e) => {
     e.preventDefault()
+
+    // Creating a Fave
     if (!isFave(movie.id)) {
       const response = await fetch("/api/faves", {
             method: "POST",
@@ -42,15 +43,11 @@ export default function MovieDetails({movie}) {
 
           if (response.ok) {
             dispatch({type: "CREATE_FAVE", payload: data})
-            console.log(data)
           }
+    // Removing a Fave
     } else {
-      const response = await fetch("/api/faves", {
-        method: "POST",
-        body: JSON.stringify({movie: movie}),
-        headers: {
-          "Content-Type": "application/json"
-        }
+      const response = await fetch(`/api/faves/${movie.id}`, {
+        method: "GET",
       })
 
       const data = await response.json()
@@ -60,122 +57,26 @@ export default function MovieDetails({movie}) {
       }
 
       if (response.ok) {
-        dispatch({type: "CREATE_FAVE", payload: data.movie})
-        console.log(data.movie)
+        dispatch({type: "DELETE_FAVE", payload: data})
       }
     }
   }
-
-  const test = async (e) => {
-e.preventDefault()
-
-console.log("Movie exists but is NOT a Fave:", movie.title)
-
-
-        const response = await fetch("/api/faves", {
-          method: "DELETE",
-          body: JSON.stringify({id: movie.id}),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          setError(data.error)
-        }
-
-        if (response.ok) {
-          setError(null)
-          dispatch({type: "UPDATE_ONE", payload: data})
-          console.log("added", data.title)
-        }
-
-    // if (existsInMovies((movie.id))) {
-    //   if (isFave(movie.id)){
-    //     console.log("Movie exists and is a Fave:", movie.title, isFave(movie.id))
-
-    //     const response = await fetch("/api/movies", {
-    //       method: "PATCH",
-    //       body: JSON.stringify({...movie, isFavourite: false}),
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       }
-    //     })
-
-    //     const data = await response.json()
-
-    //     if (!response.ok) {
-    //       setError(data.error)
-    //     }
-
-    //     if (response.ok) {
-    //       setError(null)
-    //       dispatch({type: "UPDATE_ONE", payload: data})
-    //       console.log("removed", data.title, existsInMovies(data.id), data.isFavourite, data.id)
-    //     }
-
-    //   } else if (!isFave(movie.id)) {
-    //     console.log("Movie exists but is NOT a Fave:", movie.title)
-
-    //     const response = await fetch("/api/movies", {
-    //       method: "PATCH",
-    //       body: JSON.stringify({...movie, isFavourite: true}),
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       }
-    //     })
-
-    //     const data = await response.json()
-
-    //     if (!response.ok) {
-    //       setError(data.error)
-    //     }
-
-    //     if (response.ok) {
-    //       setError(null)
-    //       dispatch({type: "UPDATE_ONE", payload: data})
-    //       console.log("added", data.title, existsInMovies(data.id), data.isFavourite, data.id)
-    //     }
-    //   }
-    // } else if (!existsInMovies((movie.id))) {
-    //   console.log("Movie does NOT exist and is NOT a Fave:", movie.title)
-
-    //   const response = await fetch("/api/movies", {
-    //     method: "POST",
-    //     body: JSON.stringify({...movie, isFavourite: true}),
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   })
-
-    //   const data = await response.json()
-
-    //   if (!response.ok) {
-    //     setError(data.error)
-    //   }
-
-    //   if (response.ok) {
-    //     setError(null)
-    //     dispatch({type: "CREATE_MOVIE", payload: data})
-    //   }
-    //   console.log("added", data.title, existsInMovies(data.id), "IsFave?", data.isFavourite, data.id)
-    // }
-
-  }
-
-  //
 
   return (
     <Fragment>
       {( title && poster_path && overview && genre_ids && vote_average ?
         <div className="card">
           <div className="image">
-            {/* {console.log(isFave(movie.id), movie.title)} */}
-            {<FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>}
-            {/* {existsInMovies(movie.id) ? <FavoriteIcon className='heart' onClick={unfaveHandler()}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/> } */}
-            <MoreVertIcon className='more' onClick={test}/>
+            <motion.div
+                whileHover={{
+                  originX: 0,
+                }}
+                whileTap={{ scale: 0.9 }}
+                >
+                  {isFave(id) ? <FavoriteIcon className={`heart faved`} onClick={favouriteHandler}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>}
+            </motion.div >
+
+            <MoreVertIcon className='more'/>
             <img src={imageUrl} alt={title} />
           </div>
         <div className="cardInfo" onClick={handleModal}>

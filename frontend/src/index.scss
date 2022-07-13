@@ -73,7 +73,11 @@ header a {
           left: 10px;
           font-size: 30px;
           cursor: pointer;
-          display: none;
+          // display: none;
+
+          &.faved {
+            color: crimson;
+          }
         }
 
         .more {
@@ -82,19 +86,19 @@ header a {
           right: 10px;
           font-size: 30px;
           cursor: pointer;
-          display: none;
+          // display: none;
         }
 
-        &:hover {
+        // &:hover {
 
-          .heart {
-            display: block;
-          }
+        //   .heart {
+        //     display: block;
+        //   }
 
-          .more {
-            display: block;
-          }
-        }
+        //   .more {
+        //     display: block;
+        //   }
+        // }
       }
 
       img {

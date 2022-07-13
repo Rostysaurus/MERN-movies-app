@@ -14,7 +14,7 @@ export const favesReducer = (state, action) => {
       }
     case "DELETE_FAVE":
       return {
-        faves: state.faves.filter((movie) => movie._id !== action.payload._id)
+        faves: state.faves.filter((fave) => fave.id !== action.payload.id)
       }
     default:
       return state

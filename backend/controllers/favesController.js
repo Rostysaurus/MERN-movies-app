@@ -12,11 +12,14 @@ const getAllFaves = async (req, res) => {
   const showFave = async (req, res) => {
     const { id } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({error: "No such workout"})
-    }
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //   return res.status(404).json({error: "No such workout"})
+    // }
 
-    const fave = await Fave.findById(id)
+    console.log(typeof parseInt(id), id)
+
+    const fave = await Fave.findOne({id: id})
+    console.log(fave)
 
     if (!fave) {
       return res.status(400).json({error: "No such fave"})
@@ -31,7 +34,7 @@ const getAllFaves = async (req, res) => {
 
     // add to DB
     try {
-      const fave = await Fave.create({ movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids} })
+      const fave = await Fave.create({ id: id, movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids} })
       res.status(200).json(fave)
     } catch (error) {
       res.status(400).json({error: error.message})
@@ -96,18 +99,21 @@ const getAllFaves = async (req, res) => {
     res.status(200).json(fave)
   }
 
-    // Find by id and DELETE
-    const deleteOne = async (req, res) => {
-      const id = req.body
-      const fave = await Fave.findOneAndDelete({movie: {id: id}})
+  // Find by id and DELETE
+  const deleteOne = async (req, res) => {
+    const { id } = req.params
 
-      if (!fave) {
-        return res.status(400).json({error: "No such fave"})
-      }
+    console.log(typeof parseInt(id), id)
 
-      res.status(200).json(fave)
+    const fave = await Fave.findOneAndRemove({id: id})
+    console.log(fave)
+
+    if (!fave) {
+      return res.status(400).json({error: "No such fave"})
     }
 
+    res.status(200).json(fave)
+  }
 
   module.exports = {
     getAllFaves,
