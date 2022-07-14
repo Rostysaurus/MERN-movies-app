@@ -2,7 +2,7 @@ import { useFavesContext } from '../hooks/useFavesContext'
 import { Fragment, useState} from 'react';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { motion } from "framer-motion"
 
 export default function MovieDetails({movie}) {
@@ -76,7 +76,7 @@ export default function MovieDetails({movie}) {
                   {isFave(id) ? <FavoriteIcon className={`heart faved`} onClick={favouriteHandler}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>}
             </motion.div >
 
-            <MoreVertIcon className='more'/>
+            <PlaylistAddIcon className='more'/>
             <img src={imageUrl} alt={title} />
           </div>
         <div className="cardInfo" onClick={handleModal}>
@@ -91,7 +91,6 @@ export default function MovieDetails({movie}) {
       </div>
       : null
       )}
-
     </Fragment>
   )
 }

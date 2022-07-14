@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import "../index.scss"
 import MovieDetails from '../components/MovieDetails';
 import { Fragment } from 'react';

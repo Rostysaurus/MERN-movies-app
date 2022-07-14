@@ -14,6 +14,8 @@ body {
 }
 header {
   background: #4F518C;
+
+
 }
 header .container {
   max-width: 1400px;
@@ -23,15 +25,30 @@ header .container {
   align-items: center;
   justify-content: space-between;
 
+
   a {
     color: white;
   }
 }
 
-.container .links {
-  display: flex;
-  gap: 10px;
-  list-style-type: none;
+.container {
+
+  .links {
+    display: flex;
+    gap: 40px;
+    list-style-type: none;
+
+    .badge {
+      span {
+        background-color: #2C2A4A;
+      }
+    }
+
+    .Faves {
+      position: relative;
+    }
+
+  }
 }
 
 /* .links li {
@@ -73,7 +90,11 @@ header a {
           left: 10px;
           font-size: 30px;
           cursor: pointer;
-          // display: none;
+          color: #a5a5a5;
+
+          &:hover {
+            color: white;
+          }
 
           &.faved {
             color: crimson;
@@ -86,19 +107,14 @@ header a {
           right: 10px;
           font-size: 30px;
           cursor: pointer;
-          // display: none;
+          color: #a5a5a5;
+
+          &:hover {
+              color: white
+          }
         }
 
-        // &:hover {
 
-        //   .heart {
-        //     display: block;
-        //   }
-
-        //   .more {
-        //     display: block;
-        //   }
-        // }
       }
 
       img {

@@ -30,11 +30,11 @@ const getAllFaves = async (req, res) => {
 
   // CREATE a new Fave (create)
   const createFave = async (req, res) => {
-    const { title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids } = req.body.movie
+    const { title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids, vote_average } = req.body.movie
 
     // add to DB
     try {
-      const fave = await Fave.create({ id: id, movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids} })
+      const fave = await Fave.create({ id: id, movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids, vote_average} })
       res.status(200).json(fave)
     } catch (error) {
       res.status(400).json({error: error.message})
@@ -106,7 +106,7 @@ const getAllFaves = async (req, res) => {
     console.log(typeof parseInt(id), id)
 
     const fave = await Fave.findOneAndRemove({id: id})
-    console.log(fave)
+    console.log("DELETED:", fave)
 
     if (!fave) {
       return res.status(400).json({error: "No such fave"})

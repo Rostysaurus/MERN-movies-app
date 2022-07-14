@@ -40,9 +40,9 @@ const faveSchema = new Schema({
       type: Number,
       required: true
     },
-    isFavourite: {
-      type: Boolean,
-      default: false
+    vote_average: {
+      type: Number,
+      required: true
     }
   }
 }, { timestamps: true })
