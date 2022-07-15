@@ -3,6 +3,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const moviesRoutes = require("./routes/moviesRoutes")
 const favesRoutes = require("./routes/favesRoutes")
+const authRoutes = require("./routes/authRoutes")
+const usersRoutes = require("./routes/usersRoutes")
 
 // express app
 const app = express()
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
 // router
 app.use("/api/movies", moviesRoutes)
 app.use("/api/faves", favesRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/users", usersRoutes)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
