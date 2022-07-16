@@ -16,9 +16,7 @@ const getAllFaves = async (req, res) => {
     //   return res.status(404).json({error: "No such workout"})
     // }
 
-    console.log(typeof parseInt(id), id)
-
-    const fave = await Fave.findOne({id: id})
+    const fave = await Fave.findOne({id})
     console.log(fave)
 
     if (!fave) {

@@ -19,7 +19,15 @@ const allUsers = async (req, res) => {
 
 // SHOW
 const showUser = async (req, res) => {
+  const {id} = req.params
 
+  const user = await User.findById(id)
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+
+  res.status(200).json(user)
 }
 
 // UPDATE
@@ -60,5 +68,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   updateUser,
   deleteUser,
-  allUsers
+  allUsers,
+  showUser
   }
