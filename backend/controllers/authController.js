@@ -18,7 +18,8 @@ const register = async (req, res) => {
       profilePic: profilePic,
       isAdmin: isAdmin
     })
-    res.status(200).json(newUser)
+    const {password, ...info} = newUser._doc
+    res.status(200).json(info)
   } catch (error) {
     res.status(400).json({error: error.message})
   }
