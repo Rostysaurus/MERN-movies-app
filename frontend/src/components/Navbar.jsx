@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import Favourites from './Favourites'
 import Playlists from './Playlists'
+import Login from "../pages/login/Login"
 import "../index.scss"
 import { useFavesContext } from '../hooks/useFavesContext'
 import { Fragment, useState} from 'react';
@@ -21,6 +22,7 @@ export default function Navbar() {
             <Link to="/favourites" className="Faves">Faves</Link>
           </Badge>
           <Link to="/playlists">{<Playlists/>}</Link>
+          <Link to="/login">Login</Link>
         </div>
       </div>
     </header>
