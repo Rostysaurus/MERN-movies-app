@@ -87,7 +87,8 @@ const stats = async (req, res) => {
         $project: {
           month: {$month: "$createdAt"}
         }
-      }, {
+      },
+      {
         $group: {
           _id: "$month",
           total: {$sum: 1}
