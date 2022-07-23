@@ -62,14 +62,19 @@ export default function Home() {
 
   return (
     <Fragment>
-    <div className="search">
-      <input type="text" onChange={searchHandle}/>
-    </div>
-    <div className="home">
-      {movies && movies.map((movie) => (
-        <MovieDetails key={movie.id} movie={movie}/>
-      ))}
-    </div>
+      <div className="homeContainer">
+        <div className="search">
+          <input
+            type="text"
+            onChange={searchHandle}
+            />
+        </div>
+        <div className="home">
+          {movies && movies.map((movie) => (
+            <MovieDetails key={movie.id} movie={movie}/>
+          ))}
+        </div>
+      </div>
     </Fragment>
   )
 }
