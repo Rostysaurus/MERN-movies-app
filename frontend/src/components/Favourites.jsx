@@ -12,7 +12,6 @@ export default function Favourites() {
     const fetchMovies = async () => {
       const response = await fetch("api/faves")
       const data = await response.json()
-      const films = data.map(f => f.movie)
 
       if (response.ok) {
         dispatch({type: "SET_FAVES", payload: data})
