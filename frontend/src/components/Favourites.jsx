@@ -26,11 +26,13 @@ export default function Favourites() {
 
   return (
     <Fragment>
-    <div className="home">
-    {faves && faves.map(fave => (
-      <MovieDetails key={fave.id} movie={fave.movie}/>
-    ))}
-    </div>
+      <div className="homeContainer">
+        <div className="home">
+          {faves && faves.map(fave => (
+            <MovieDetails key={fave.id} movie={fave.movie}/>
+          ))}
+        </div>
+      </div>
     </Fragment>
   )
 }
