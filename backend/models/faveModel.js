@@ -7,6 +7,10 @@ const faveSchema = new Schema({
     required: true,
     unique: true
   },
+  userId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+  },
   movie: {
     title: {
       type: String,

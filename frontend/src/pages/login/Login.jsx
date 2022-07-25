@@ -1,5 +1,6 @@
 import {useState, useContext} from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import { login } from '../../context/authContext/ApiCalls'
 import "./login.scss"
 
 export default function Login() {
@@ -9,6 +10,7 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault()
+    login({email, password}, dispatch)
   }
   return (
     <div className='login'>
@@ -26,6 +28,7 @@ export default function Login() {
         <button
           className='loginButton'
           onClick={handleLogin}
+          disabled={isFetching}
           >
             Login
           </button>

@@ -4,8 +4,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { motion } from "framer-motion"
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export default function MovieDetails({movie}) {
+  const {user} = useAuthContext()
   const { dispatch, faves } = useFavesContext()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [error, setError] = useState(null)
@@ -29,7 +31,7 @@ export default function MovieDetails({movie}) {
     if (!isFave(movie.id)) {
       const response = await fetch("/api/faves", {
             method: "POST",
-            body: JSON.stringify({movie: movie}),
+            body: JSON.stringify({movie: movie, userId: user._id}),
             headers: {
               "Content-Type": "application/json"
             }
@@ -73,7 +75,7 @@ export default function MovieDetails({movie}) {
                 }}
                 whileTap={{ scale: 0.9 }}
                 >
-                  {isFave(id) ? <FavoriteIcon className={`heart faved`} onClick={favouriteHandler}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>}
+                {user && (isFave(id) ? <FavoriteIcon className={`heart faved`} onClick={favouriteHandler}/> : <FavoriteBorderIcon className='heart' onClick={favouriteHandler}/>)}
             </motion.div >
 
             <PlaylistAddIcon className='more'/>

@@ -3,7 +3,8 @@ const Fave = require("../models/faveModel")
 
 // GET all faves (index)
 const getAllFaves = async (req, res) => {
-  const faves = await Fave.find({}).sort({createdAt: -1})
+  const {userId} = req.body
+  const faves = await Fave.find({userId: userId}).sort({createdAt: -1})
 
   res.status(200).json(faves)
   }
@@ -28,11 +29,12 @@ const getAllFaves = async (req, res) => {
 
   // CREATE a new Fave (create)
   const createFave = async (req, res) => {
+    const {userId} = req.body
     const { title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids, vote_average } = req.body.movie
 
     // add to DB
     try {
-      const fave = await Fave.create({ id: id, movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids, vote_average} })
+      const fave = await Fave.create({ id: id, userId, movie: {title, release_date, poster_path, overview, original_language, genre_ids, id, isFavourite, playlist_ids, vote_average} })
       res.status(200).json(fave)
     } catch (error) {
       res.status(400).json({error: error.message})

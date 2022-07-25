@@ -3,14 +3,22 @@ import { useEffect, useState } from "react"
 import { useFavesContext } from '../hooks/useFavesContext'
 import { Fragment } from 'react'
 import MovieDetails from './MovieDetails'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 export default function Favourites() {
   const { dispatch, faves } = useFavesContext()
   const [movies, setMovies ] = useState([])
+  const {user} = useAuthContext()
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await fetch("api/faves")
+      const response = await fetch("api/faves", {
+        method: "GET",
+        body: JSON.stringify({userId: user._id}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
       const data = await response.json()
 
       if (response.ok) {
