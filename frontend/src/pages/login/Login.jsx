@@ -2,6 +2,7 @@ import {useState, useContext, Fragment} from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { login, register } from '../../context/authContext/ApiCalls'
 import "./login.scss"
+import FormInput from '../../components/Form input/FormInput'
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -10,6 +11,65 @@ export default function Login() {
   const [registerPassword, setRegisterPassword] = useState("")
   const [registerUsername, setRegisterUsername] = useState("")
   const {isFetching, error, dispatch} = useAuthContext()
+
+  const [loginValues, setLoginValues] = useState({
+    email: "",
+    password: ""
+  })
+
+  const [registerValues, setRegisterValues] = useState({
+    username: "",
+    email: "",
+    password: ""
+  })
+
+  const loginInputs = [
+    {
+      id: 1,
+      name: "email",
+      type: "text",
+      placeholder: "Email",
+      label: "Email"
+    },
+    {
+      id: 2,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      label: "Password"
+    }
+  ]
+
+  const registerInputs = [
+    {
+      id: 1,
+      name: "email",
+      type: "text",
+      placeholder: "Email",
+      label: "Email"
+    },
+    {
+      id: 2,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      label: "Password"
+    },
+    {
+      id: 3,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      label: "Confirm Password"
+    },
+    {
+      id: 4,
+      name: "username",
+      type: "username",
+      placeholder: "Username",
+      label: "Username"
+    }
+  ]
 
   console.log(registerEmail, registerPassword, registerUsername)
 
