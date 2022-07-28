@@ -21,9 +21,9 @@ export const register = async (user, dispatch) => {
 
   try {
     const res = await axios.post("api/auth/register", {
-      username: user.registerUsername,
-      email: user.registerEmail,
-      password: user.registerPassword
+      username: user.username,
+      email: user.email,
+      password: user.password
     })
     dispatch(registerSuccess(res.data))
   } catch (error) {

@@ -1,13 +1,16 @@
+import { Fragment } from "react"
 import "./formInput.scss"
 
 export default function FormInput(props) {
+  const { label, onChange, id, errorMessage, ...inputs } = props
   return (
-    <div className="formInput">
+    <Fragment>
+      <label>{label}</label>
       <input
-        placeholder={props.placeholder}
-        type={props.type}
-        name={props.name}
+        { ...inputs }
+        onChange={onChange}
         />
-    </div>
+        <span>{errorMessage}</span>
+    </Fragment>
   )
 }

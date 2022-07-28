@@ -5,11 +5,6 @@ import "./login.scss"
 import FormInput from '../../components/Form input/FormInput'
 
 export default function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [registerEmail, setRegisterEmail] = useState("")
-  const [registerPassword, setRegisterPassword] = useState("")
-  const [registerUsername, setRegisterUsername] = useState("")
   const {isFetching, error, dispatch} = useAuthContext()
 
   const [loginValues, setLoginValues] = useState({
@@ -20,7 +15,8 @@ export default function Login() {
   const [registerValues, setRegisterValues] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   })
 
   const loginInputs = [
@@ -29,6 +25,7 @@ export default function Login() {
       name: "email",
       type: "text",
       placeholder: "Email",
+      errorMessage: "You need to have a valid email address!",
       label: "Email"
     },
     {
@@ -36,6 +33,7 @@ export default function Login() {
       name: "password",
       type: "password",
       placeholder: "Password",
+      errorMessage: "Password should be 8-20 characters and include at least a number, a letter and a special character",
       label: "Password"
     }
   ]
@@ -43,62 +41,74 @@ export default function Login() {
   const registerInputs = [
     {
       id: 1,
-      name: "email",
-      type: "text",
-      placeholder: "Email",
-      label: "Email"
-    },
-    {
-      id: 2,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      label: "Password"
-    },
-    {
-      id: 3,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Confirm Password",
-      label: "Confirm Password"
-    },
-    {
-      id: 4,
       name: "username",
       type: "username",
       placeholder: "Username",
+      errorMessage: "Username should be 3-16 characters long and not inclue any special characters",
       label: "Username"
+    },
+    {
+      id: 2,
+      name: "email",
+      type: "text",
+      placeholder: "Email",
+      errorMessage: "",
+      label: "Email"
+    },
+    {
+      id: 3,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage: "Password should be 8-20 characters and include at least a number, a letter and a special character",
+      label: "Password"
+    },
+    {
+      id: 4,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      errorMessage: "Passwords do not match!",
+      label: "Confirm Password"
     }
   ]
 
-  console.log(registerEmail, registerPassword, registerUsername)
+  console.log(registerValues)
 
 
   const handleLogin = (e) => {
     e.preventDefault()
-    login({email, password}, dispatch)
+    login(loginValues, dispatch)
   }
 
   const handleRegister = (e) => {
     e.preventDefault()
-    register({registerUsername, registerEmail, registerPassword}, dispatch)
+    const { username, email, password } = registerValues
+    register({username, email, password}, dispatch)
+  }
+
+  const handleLoginChange = (e) => {
+    setLoginValues({ ...loginValues, [e.target.name]: e.target.value })
+  }
+
+  const handleRegisterChange = (e) => {
+    setRegisterValues({ ...registerValues, [e.target.name]: e.target.value })
   }
 
   return (
     <Fragment>
-      <h2>Login...</h2>
+      <h2>Login</h2>
       <div className='login'>
         <form className='loginForm'>
-          <input
-            type="text"
-            placeholder='email'
-            className='loginInput'
-            onChange={(e) => setEmail(e.target.value)}/>
-          <input
-            type="password"
-            placeholder='password'
-            className='loginInput'
-            onChange={(e) => setPassword(e.target.value)}/>
+          {loginInputs.map((input) => (
+            <FormInput
+              className='loginInput'
+              key={input.id}
+              { ...input }
+              value={loginValues[input.name]}
+              onChange={handleLoginChange}
+              />
+          ))}
           <button
             className='loginButton'
             onClick={handleLogin}
@@ -108,24 +118,18 @@ export default function Login() {
             </button>
         </form>
       </div>
-      <h2>... or Sign up!</h2>
+      <h2>Sign up</h2>
       <div className='login'>
         <form className='loginForm'>
-          <input
-            type="text"
-            placeholder='username'
-            className='loginInput'
-            onChange={(e) => setRegisterUsername(e.target.value)}/>
-          <input
-            type="text"
-            placeholder='email'
-            className='loginInput'
-            onChange={(e) => setRegisterEmail(e.target.value)}/>
-          <input
-            type="password"
-            placeholder='password'
-            className='loginInput'
-            onChange={(e) => setRegisterPassword(e.target.value)}/>
+            {registerInputs.map((input) => (
+              <FormInput
+                className='loginInput'
+                key={input.id}
+                { ...input }
+                value={registerValues[input.name]}
+                onChange={handleRegisterChange}
+                />
+            ))}
           <button
             className='loginButton'
             onClick={handleRegister}
