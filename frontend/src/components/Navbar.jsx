@@ -11,9 +11,11 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import { logout } from "../context/authContext/AuthActions"
 
 export default function Navbar() {
+// States
   const {faves} = useFavesContext()
   const {user, dispatch} = useAuthContext()
 
+// Handlers
   const handleLogout = () => {
     dispatch(logout())
   }

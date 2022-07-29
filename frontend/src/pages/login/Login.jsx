@@ -5,6 +5,8 @@ import "./login.scss"
 import FormInput from '../../components/Form input/FormInput'
 
 export default function Login() {
+
+  // States
   const {isFetching, error, dispatch} = useAuthContext()
 
   const [loginValues, setLoginValues] = useState({
@@ -19,6 +21,7 @@ export default function Login() {
     confirmPassword: ""
   })
 
+  // Input objects
   const loginInputs = [
     {
       id: 1,
@@ -38,6 +41,7 @@ export default function Login() {
     }
   ]
 
+  // Register Objects
   const registerInputs = [
     {
       id: 1,
@@ -75,7 +79,7 @@ export default function Login() {
 
   console.log(registerValues)
 
-
+// Login & Register handlers for API
   const handleLogin = (e) => {
     e.preventDefault()
     login(loginValues, dispatch)
@@ -87,6 +91,7 @@ export default function Login() {
     register({username, email, password}, dispatch)
   }
 
+// OnChange handlers
   const handleLoginChange = (e) => {
     setLoginValues({ ...loginValues, [e.target.name]: e.target.value })
   }
@@ -97,6 +102,7 @@ export default function Login() {
 
   return (
     <Fragment>
+      {/* LOGIN  */}
       <h2>Login</h2>
       <div className='login'>
         <form className='loginForm'>
@@ -118,6 +124,7 @@ export default function Login() {
             </button>
         </form>
       </div>
+      {/* REGISTER */}
       <h2>Sign up</h2>
       <div className='login'>
         <form className='loginForm'>
