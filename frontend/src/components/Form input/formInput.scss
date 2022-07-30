@@ -1,0 +1,28 @@
+label {
+  font-size: 12px;
+  justify-self: flex-start;
+  color: #d0d6e3;
+}
+
+.loginInput {
+  display: block;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+span {
+  color: red;
+  font-size: 12px;
+  padding: 0 0 20px 0 ;
+  display: none;
+}
+
+.loginInput:invalid[focused="true"] ~ span {
+  display: block;
+}

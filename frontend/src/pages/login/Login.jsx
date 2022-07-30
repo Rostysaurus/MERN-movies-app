@@ -26,18 +26,21 @@ export default function Login() {
     {
       id: 1,
       name: "email",
-      type: "text",
+      type: "email",
       placeholder: "Email",
       errorMessage: "You need to have a valid email address!",
-      label: "Email"
+      label: "Email",
+      required: true
     },
     {
       id: 2,
       name: "password",
       type: "password",
       placeholder: "Password",
-      errorMessage: "Password should be 8-20 characters and include at least a number, a letter and a special character",
-      label: "Password"
+      errorMessage: "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "Password",
+      required: true,
+      pattern: "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$"
     }
   ]
 
@@ -46,26 +49,31 @@ export default function Login() {
     {
       id: 1,
       name: "username",
-      type: "username",
+      type: "text",
       placeholder: "Username",
       errorMessage: "Username should be 3-16 characters long and not inclue any special characters",
-      label: "Username"
+      label: "Username",
+      required: true,
+      pattern: "^[A-Za-z0-9]{3,16}$"
     },
     {
       id: 2,
       name: "email",
-      type: "text",
+      type: "email",
       placeholder: "Email",
-      errorMessage: "",
-      label: "Email"
+      errorMessage: "You need to have a valid email address!",
+      label: "Email",
+      required: true,
     },
     {
       id: 3,
       name: "password",
       type: "password",
       placeholder: "Password",
-      errorMessage: "Password should be 8-20 characters and include at least a number, a letter and a special character",
-      label: "Password"
+      errorMessage: "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "Password",
+      required: true,
+      pattern: "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$"
     },
     {
       id: 4,
@@ -73,7 +81,9 @@ export default function Login() {
       type: "password",
       placeholder: "Confirm Password",
       errorMessage: "Passwords do not match!",
-      label: "Confirm Password"
+      label: "Confirm Password",
+      required: true,
+      pattern: registerValues.password
     }
   ]
 
