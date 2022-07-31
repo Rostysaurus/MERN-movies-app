@@ -17,6 +17,7 @@ export default function FormInput(props) {
         className="loginInput"
         { ...inputs }
         onChange={onChange}
+        onFocus={()=> inputs.name === "confirmPassword" && setFocused(true)}
         onBlur={handleFocus}
         focused={focused.toString()}
         />

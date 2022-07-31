@@ -23,6 +23,10 @@ span {
   display: none;
 }
 
-.loginInput:invalid[focused="true"] ~ span {
+.loginInput:invalid[focused="true" ] {
+  border: 2px solid red;
+}
+
+.loginInput:invalid[focused="true" ] ~ span {
   display: block;
 }
