@@ -1,10 +1,12 @@
 const express = require("express")
-const { getAllFaves, showFave, createFave, deleteFave, updateFave, deleteFaves, updateOne, deleteOne } = require("../controllers/FavesController")
+const { getAllFaves, getUserFaves, createFave, deleteFave, updateFave, deleteFaves, updateOne, deleteOne } = require("../controllers/FavesController")
 
 const router = express.Router()
 
 // // GET all Faves (index)
 router.get("/", getAllFaves)
+
+router.get("/:userId", getUserFaves)
 
 // // GET a single Fave (show)
 // router.get("/:id", showFave)
@@ -13,7 +15,7 @@ router.get("/", getAllFaves)
 router.post("/", createFave)
 
 // //DELETE a Fave (destroy)
-router.delete("/:id", deleteFave)
+// router.delete("/:id", deleteFave)
 
 // // UPDATE a Fave (update)
 router.patch("/:id", updateFave)
@@ -25,6 +27,6 @@ router.delete("/", deleteFaves)
 router.patch("/", updateOne)
 
 // DELETE one
-router.get("/:id", deleteOne)
+router.delete("/:id", deleteOne)
 
 module.exports = router;

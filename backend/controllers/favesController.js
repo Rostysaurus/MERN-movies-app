@@ -3,10 +3,17 @@ const Fave = require("../models/faveModel")
 
 // GET all faves (index)
 const getAllFaves = async (req, res) => {
+  const {id} = req.params
   const {userId} = req.body
   const faves = await Fave.find({userId: userId}).sort({createdAt: -1})
 
   res.status(200).json(faves)
+  }
+
+  // GET all faves of a spesific user
+  const getUserFaves = async (req, res) => {
+    const {id} = req.params
+    const faves = await Fave.find({userId: id}).sort({createdAt: -1})
   }
 
   // GET a single Fave (show)
@@ -101,7 +108,7 @@ const getAllFaves = async (req, res) => {
 
   // Find by id and DELETE
   const deleteOne = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params.userId
 
     console.log(typeof parseInt(id), id)
 
@@ -117,6 +124,7 @@ const getAllFaves = async (req, res) => {
 
   module.exports = {
     getAllFaves,
+    getUserFaves,
     showFave,
     createFave,
     deleteFave,

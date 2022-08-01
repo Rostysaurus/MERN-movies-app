@@ -4,6 +4,7 @@ import "../index.scss"
 import MovieDetails from '../components/MovieDetails';
 import { Fragment } from 'react';
 import { useFavesContext } from '../hooks/useFavesContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export default function Home() {
 
@@ -16,10 +17,11 @@ export default function Home() {
   // console.log(popularMovies)
 
   const { dispatch } = useFavesContext()
+  const { user } = useAuthContext()
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await fetch("api/faves")
+      const response = await fetch(`api/faves/${user._id}`)
       const data = await response.json()
 
       if (response.ok) {

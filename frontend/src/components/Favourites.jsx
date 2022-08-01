@@ -10,16 +10,13 @@ export default function Favourites() {
   const [movies, setMovies ] = useState([])
   const {user} = useAuthContext()
 
+  console.log(faves)
+
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await fetch("api/faves", {
-        method: "GET",
-        body: JSON.stringify({userId: user._id}),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
+      const response = await fetch(`api/faves/${user._id}`)
       const data = await response.json()
+      console.log(data)
 
       if (response.ok) {
         dispatch({type: "SET_FAVES", payload: data})
