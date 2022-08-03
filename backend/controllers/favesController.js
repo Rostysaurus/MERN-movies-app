@@ -12,8 +12,15 @@ const getAllFaves = async (req, res) => {
 
   // GET all faves of a spesific user
   const getUserFaves = async (req, res) => {
-    const {id} = req.params
+    const id = req.params.userId
+    console.log(id);
     const faves = await Fave.find({userId: id}).sort({createdAt: -1})
+
+    if (!faves) {
+      return res.status(400).json({error: "User has no faves"})
+    }
+
+    res.status(200).json(faves)
   }
 
   // GET a single Fave (show)
@@ -108,11 +115,11 @@ const getAllFaves = async (req, res) => {
 
   // Find by id and DELETE
   const deleteOne = async (req, res) => {
-    const { id } = req.params.userId
+    const { id } = req.params
 
     console.log(typeof parseInt(id), id)
 
-    const fave = await Fave.findOneAndRemove({id: id})
+    const fave = await Fave.findOneAndDelete({id: id})
     console.log("DELETED:", fave)
 
     if (!fave) {

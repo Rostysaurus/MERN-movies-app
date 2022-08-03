@@ -49,7 +49,7 @@ export default function MovieDetails({movie}) {
     // Removing a Fave
     } else {
       const response = await fetch(`/api/faves/${movie.id}`, {
-        method: "GET",
+        method: "DELETE",
       })
 
       const data = await response.json()
