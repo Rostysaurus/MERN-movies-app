@@ -1,15 +1,16 @@
 const express = require("express")
-const { createPlaylist } =  require("../controllers/playlistsController")
+const { getAllPlaylists, createPlaylist, updatePlaylist } =  require("../controllers/playlistsController")
 const router = express.Router()
 
 // GET all playlists
-
+router.get("/", getAllPlaylists)
 // SHOW a playlist
 
 // CREATE a playlist
 router.post("/", createPlaylist)
 
 // UPDATE a playlist
+router.patch("/:id", updatePlaylist)
 
 // DELETE a playlist
 
