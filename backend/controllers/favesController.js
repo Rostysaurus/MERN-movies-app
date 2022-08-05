@@ -60,7 +60,7 @@ const getAllFaves = async (req, res) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({error: "No such workout"})
+      return res.status(404).json({error: "No such fave"})
     }
 
     const fave = await Fave.findByIdAndDelete({_id: id})
@@ -119,7 +119,7 @@ const getAllFaves = async (req, res) => {
 
     console.log(typeof parseInt(id), id)
 
-    const fave = await Fave.findOneAndDelete({id: id})
+    const fave = await Fave.findOneAndDelete({"movie.id": id})
     console.log("DELETED:", fave)
 
     if (!fave) {

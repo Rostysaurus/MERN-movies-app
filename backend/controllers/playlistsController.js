@@ -3,12 +3,14 @@ const Playlist = require("../models/playlistModel")
 
 // GET all playlists
 const getAllPlaylists = async (req, res) => {
-  try {
-    const playlists = await Playlist.find({}).sort({createdAt: -1})
-    res.status(200).json(playlists)
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
+    console.log(req.query)
+    const {id} = req.query
+    try {
+      const playlists = await Playlist.find({userId: id}).sort({createdAt: -1})
+      res.status(200).json(playlists)
+    } catch (error) {
+      res.status(400).json({error: error.message})
+    }
 }
 
 // GET all user's playlists

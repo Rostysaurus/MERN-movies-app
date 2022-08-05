@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 const faveSchema = new Schema({
   id: {
     type: Number,
-    required: true,
-    unique: true
+    required: false,
+    unique: false
   },
   userId: {
     type: mongoose.SchemaTypes.ObjectId,
