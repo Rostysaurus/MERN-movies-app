@@ -14,6 +14,15 @@ const getAllPlaylists = async (req, res) => {
 }
 
 // GET all user's playlists
+const getAll = async (req, res) => {
+
+  try {
+    const playlists = await Playlist.find().sort({createdAt: -1})
+    res.status(200).json(playlists)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
 
 // SHOW a playlist
 
@@ -51,6 +60,7 @@ const updatePlaylist = async (req, res) => {
 // DELETE a playlist
 
 module.exports = {
+  getAll,
   createPlaylist,
   updatePlaylist,
   getAllPlaylists
